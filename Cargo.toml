@@ -6,3 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+async-std = "1.10"
+async-tungstenite = { version = "0.16", features = ["async-std-runtime", "async-native-tls"] }
+futures = "0.3"
+log = "0.4"
+rmpv = "1.0"
