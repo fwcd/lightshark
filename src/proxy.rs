@@ -2,6 +2,7 @@ use anyhow::Result;
 use async_std::{net::TcpStream, task};
 use async_tungstenite::{async_std::connect_async, accept_async};
 use futures::{SinkExt, StreamExt};
+use log::info;
 
 /// Proxies the traffic between the given client and the given server URL.
 pub(crate) async fn proxy(client_stream: TcpStream, server_url: &str) -> Result<()> {
@@ -16,6 +17,7 @@ pub(crate) async fn proxy(client_stream: TcpStream, server_url: &str) -> Result<
     let client_proxy = task::spawn::<_, Result<()>>(async move {
         while let Some(msg_result) = server_stream.next().await {
             let msg = msg_result?;
+            info!("<- {:?}", msg);
             client_sink.send(msg).await?;
         }
         Ok(())
@@ -25,6 +27,7 @@ pub(crate) async fn proxy(client_stream: TcpStream, server_url: &str) -> Result<
     let server_proxy = task::spawn::<_, Result<()>>(async move {
         while let Some(msg_result) = client_stream.next().await {
             let msg = msg_result?;
+            info!("-> {:?}", msg);
             server_sink.send(msg).await?;
         }
         Ok(())
