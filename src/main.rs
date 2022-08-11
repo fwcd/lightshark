@@ -1,3 +1,4 @@
+mod format;
 mod proxy;
 
 use anyhow::Result;
