@@ -24,7 +24,7 @@ async fn main() -> Result<()> {
     let args = Args::parse();
 
     let listener = TcpListener::bind((args.host.as_str(), args.port)).await?;
-    info!("Listening on {}:{}...", args.host, args.port);
+    info!("Listening on ws://{}:{}...", args.host, args.port);
 
     let (client_stream, client_addr) = listener.accept().await?;
     info!("Connected to {}", client_addr);
