@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 async-std = { version= "1.10", features = ["attributes"] }
 async-tungstenite = { version = "0.17", features = ["async-std-runtime", "async-native-tls"] }
+clap = { version = "3.2", features = ["derive"] }
 futures = "0.3"
 log = "0.4"
 simple_logger = "2.2"
